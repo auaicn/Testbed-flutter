@@ -1,5 +1,6 @@
 import 'package:course_2/functions/my_animated_opacity.dart';
 import 'package:course_2/functions/my_drawer.dart';
+import 'package:course_2/functions/my_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:course_2/functions/my_animated_container.dart';
 import 'dart:math';
@@ -35,6 +36,10 @@ class _TitlePageState extends State<TitlePage> {
                 FunctionItem(
                   functionName: "Drawer",
                   detailedWidget: MyDrawer(),
+                ),
+                FunctionItem(
+                  functionName: "Snack Bar",
+                  detailedWidget: MySnackBar(),
                 )
               ],
             ),

@@ -17,7 +17,10 @@ class _TitlePageState extends State<TitlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Functions Title Page")),
+      appBar: AppBar(
+        title: Text("Functions Title Page"),
+        centerTitle: true,
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(40),
@@ -45,7 +48,7 @@ class _TitlePageState extends State<TitlePage> {
                 FunctionItem(
                   functionName: "Orientation Builder",
                   detailedWidget: MyOrientationBuilder(),
-                )
+                ),
               ],
             ),
           ),

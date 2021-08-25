@@ -8,7 +8,8 @@ class MyOrientationBuilder extends StatefulWidget {
 }
 
 class _MyOrientationBuilderState extends State<MyOrientationBuilder> {
-  final int _crossAxisCount = 3;
+  final int _crossAxisCountInPortraitMode = 3;
+  final int _crossAxisCountInLandscapeMode = 5;
   final String _functionName = "Orientation Builder";
   void _handleAppBarBackArrow() {
     Navigator.pop(context);
@@ -18,9 +19,8 @@ class _MyOrientationBuilderState extends State<MyOrientationBuilder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(_functionName),
-        ),
+        title: Text(_functionName),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: _handleAppBarBackArrow,
@@ -33,7 +33,9 @@ class _MyOrientationBuilderState extends State<MyOrientationBuilder> {
             padding: EdgeInsets.zero,
 
             // GridView 는 기본적으로 ratio 1:1 을 가져가는 것 같다.
-            crossAxisCount: orientation == Orientation.portrait ? 3 : 5,
+            crossAxisCount: orientation == Orientation.portrait
+                ? _crossAxisCountInPortraitMode
+                : _crossAxisCountInLandscapeMode,
             children: List.generate(
               50,
               (index) => Center(

@@ -11,7 +11,7 @@ class InflearnCourseApp extends StatelessWidget {
     return MaterialApp(
       title: 'Inflearn Course App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: TitlePage(),
     );

@@ -29,7 +29,6 @@ class _MySnackBarState extends State<MySnackBar> {
           onPressed: () {
             final snackBar = SnackBar(
               content: Text("나는 스낵바"),
-              backgroundColor: Colors.red,
               action: SnackBarAction(label: '취소', onPressed: () {}),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);

@@ -1,6 +1,6 @@
-import 'package:course_2/my_animated_opacity.dart';
+import 'package:course_2/functions/my_animated_opacity.dart';
 import 'package:flutter/material.dart';
-import 'package:course_2/my_animated_container.dart';
+import 'package:course_2/functions/my_animated_container.dart';
 import 'dart:math';
 
 class TitlePage extends StatefulWidget {

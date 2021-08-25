@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:course_2/title.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,59 +13,7 @@ class InflearnCourseApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyAnimatedContainer(title: 'Inflearn Course App Home Page'),
-    );
-  }
-}
-
-class MyAnimatedContainer extends StatefulWidget {
-  final String title;
-  const MyAnimatedContainer({Key key, this.title}) : super(key: key);
-
-  @override
-  _AnimatedContainerState createState() => _AnimatedContainerState();
-}
-
-class _AnimatedContainerState extends State<MyAnimatedContainer> {
-  double _width = 50;
-  double _height = 50;
-  double _radius = 50;
-  Color _color = Colors.green;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('MyAnimatedContainer'),
-      ),
-      body: Center(
-        child: AnimatedContainer(
-            width: _width,
-            height: _height,
-            duration: Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(_radius),
-              color: _color,
-            )),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            final random = Random();
-            _width = random.nextInt(300).toDouble();
-            _height = random.nextInt(300).toDouble();
-            _radius = random.nextInt(100).toDouble();
-            _color = Color.fromRGBO(
-              random.nextInt(256),
-              random.nextInt(256),
-              random.nextInt(256),
-              1,
-            );
-          });
-        },
-        child: Icon(Icons.play_arrow),
-      ),
+      home: TitlePage(),
     );
   }
 }

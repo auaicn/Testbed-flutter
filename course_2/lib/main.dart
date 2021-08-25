@@ -14,6 +14,9 @@ class InflearnCourseApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       home: TitlePage(),
+
+      // options
+      debugShowCheckedModeBanner: false,
     );
   }
 }

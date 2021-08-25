@@ -24,17 +24,18 @@ class _MySnackBarState extends State<MySnackBar> {
         ),
       ),
       body: Center(
-          child: TextButton(
-        onPressed: () {
-          final snackBar = SnackBar(
-            content: Text("나는 스낵바"),
-            backgroundColor: Colors.red,
-            action: SnackBarAction(label: '취소', onPressed: () {}),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-        child: Text("auaaicn"),
-      )),
+        child: TextButton(
+          child: Text("Show SnackBar"),
+          onPressed: () {
+            final snackBar = SnackBar(
+              content: Text("나는 스낵바"),
+              backgroundColor: Colors.red,
+              action: SnackBarAction(label: '취소', onPressed: () {}),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+        ),
+      ),
     );
   }
 }

@@ -13,7 +13,7 @@ class InflearnCourseApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
         accentColor: Colors.yellow,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
       ),
       home: TitlePage(),
 

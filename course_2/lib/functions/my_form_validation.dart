@@ -13,6 +13,22 @@ class _MyFormValidationState extends State<MyFormValidation> {
   // widget 의, 그중에 FormState dml 유일한 키값
   final _formKey = GlobalKey<FormState>();
 
+  FocusNode _nameFocuseNode;
+  final _nameEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    _nameFocuseNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameFocuseNode.dispose();
+    _nameEditingController.dispose();
+    super.dispose();
+  }
+
   void _handleAppBarBackArrow() {
     Navigator.pop(context);
   }
@@ -42,15 +58,49 @@ class _MyFormValidationState extends State<MyFormValidation> {
                   return null;
                 },
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      // valid
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('처리중')));
+                    }
+                  },
+                  child: Text('제출하기'),
+                ),
+              ),
+              TextField(
+                controller: _nameEditingController,
+                onChanged: (text) {
+                  print(text);
+                },
+                focusNode: _nameFocuseNode,
+                decoration: InputDecoration(
+                  hintText: '이름을 입력해주세요',
+                  labelText: '이름',
+                  border: InputBorder.none,
+                ),
+                autofocus: true,
+              ),
               TextButton(
                 onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    // valid
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text('처리중')));
-                  }
+                  FocusScope.of(context).requestFocus(_nameFocuseNode);
                 },
-                child: Text('제출하기'),
+                child: Text('focus'),
+              ),
+              TextButton(
+                onPressed: () {
+                  print(_nameEditingController.text);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                            content: Text(_nameEditingController.text));
+                      });
+                },
+                child: Text('값 확인'),
               ),
             ],
           ),

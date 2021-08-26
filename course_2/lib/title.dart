@@ -2,6 +2,7 @@ import 'package:course_2/functions/my_animated_opacity.dart';
 import 'package:course_2/functions/my_bottom_navigation_bar.dart';
 import 'package:course_2/functions/my_default_tab_controller.dart';
 import 'package:course_2/functions/my_drawer.dart';
+import 'package:course_2/functions/my_form_validation.dart';
 import 'package:course_2/functions/my_orientation_builder.dart';
 import 'package:course_2/functions/my_snack_bar.dart';
 import 'package:course_2/functions/my_tab_controller.dart';
@@ -63,6 +64,10 @@ class _TitlePageState extends State<TitlePage> {
                 FunctionItem(
                   functionName: "Bottom Navigation Bar",
                   detailedWidget: MyBottomNavigationBar(),
+                ),
+                FunctionItem(
+                  functionName: "Form Validation",
+                  detailedWidget: MyFormValidation(),
                 ),
               ],
             ),

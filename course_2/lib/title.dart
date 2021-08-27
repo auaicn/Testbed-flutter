@@ -30,9 +30,8 @@ class _TitlePageState extends State<TitlePage> {
         centerTitle: true,
       ),
       body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(40),
-          child: Container(
+        child: Container(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

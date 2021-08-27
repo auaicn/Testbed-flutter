@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyMethodChannel extends StatefulWidget {
   const MyMethodChannel({Key key}) : super(key: key);
@@ -13,6 +14,21 @@ class _MyMethodChannelState extends State<MyMethodChannel> {
     Navigator.pop(context);
   }
 
+  static const platform = const MethodChannel('example.com/value');
+  String _value = 'null';
+
+  Future<void> _getNativeValue() async {
+    String value;
+    try {
+      value = await platform.invokeMethod('getValue');
+    } on PlatformException catch (e) {
+      value = '네이티브 코드 실행 에러 : ${e.message}';
+    }
+    setState(() {
+      _value = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +39,17 @@ class _MyMethodChannelState extends State<MyMethodChannel> {
           onPressed: _handleAppBarBackArrow,
         ),
       ),
-      body: Container(color: Colors.white),
+      body: Center(
+        child: Column(
+          children: [
+            Text('$_value'),
+            TextButton(
+              onPressed: _getNativeValue,
+              child: Text('네이티브 값 얻기'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

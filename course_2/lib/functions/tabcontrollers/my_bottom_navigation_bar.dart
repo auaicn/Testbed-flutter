@@ -16,6 +16,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     Navigator.pop(context);
   }
 
+  List views = [
+    Container(color: Colors.white),
+    Container(color: Colors.red),
+    Container(color: Colors.black),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +32,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           onPressed: _handleAppBarBackArrow,
         ),
       ),
-      body: Container(color: Colors.white),
+      body: views[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (int index) {
@@ -36,11 +42,18 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         },
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.alarm),
-              label: 'tab1',
-              activeIcon: Icon(Icons.alarm_add_rounded)),
-          BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'tab1'),
-          BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'tab1'),
+            icon: Icon(Icons.alarm),
+            label: 'tab 1',
+            activeIcon: Icon(Icons.alarm_add_rounded),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.web_asset_off),
+            label: 'tab 2',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.online_prediction),
+            label: 'tab 3',
+          ),
         ],
         backgroundColor: Colors.white,
         selectedItemColor: Colors.black,

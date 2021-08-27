@@ -6,6 +6,7 @@ import 'package:course_2/functions/my_form_validation.dart';
 import 'package:course_2/functions/my_orientation_builder.dart';
 import 'package:course_2/functions/my_snack_bar.dart';
 import 'package:course_2/functions/my_tab_controller.dart';
+import 'package:course_2/functions/swipe_to_dismiss.dart';
 import 'package:flutter/material.dart';
 import 'package:course_2/functions/my_animated_container.dart';
 import 'dart:math';
@@ -68,6 +69,10 @@ class _TitlePageState extends State<TitlePage> {
                 FunctionItem(
                   functionName: "Form Validation",
                   detailedWidget: MyFormValidation(),
+                ),
+                FunctionItem(
+                  functionName: "Swipe left to dismiss",
+                  detailedWidget: SwipeToDismiss(),
                 ),
               ],
             ),

@@ -1,4 +1,7 @@
+import 'package:bloc_pattern/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
+
+final counterBloc = CounterBloc();
 
 void main() {
   runApp(MyApp());
@@ -34,7 +37,28 @@ class _MainPageState extends State<MainPage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Text(widget.title),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                  onPressed: counterBloc.increase, child: Text('increase')),
+              StreamBuilder(
+                stream: counterBloc.counter$,
+                initialData: 0,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('error');
+                  } else if (snapshot.hasData) {
+                    return Text('${snapshot.data}');
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

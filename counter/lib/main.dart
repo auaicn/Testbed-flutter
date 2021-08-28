@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: MainPage(title: 'Counter App'),
     );
   }
@@ -28,8 +29,29 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _counter = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Counter"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(onPressed: _increment, child: Text("Increase")),
+            Text("$_counter")
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _increment() {
+    setState(() {
+      _counter++;
+    });
   }
 }

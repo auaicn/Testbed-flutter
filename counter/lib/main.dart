@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +30,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _counter = 0;
+  int _simpleCounter = 0;
+  int _rxdartCounter = 0;
+  final counterSubject = BehaviorSubject<int>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,30 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(onPressed: _increment, child: Text("Increase")),
-            Text("$_counter")
+            Text("$_simpleCounter"),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20),
+              color: Colors.blueGrey,
+              height: 2,
+            ),
+            TextButton(
+                onPressed: () {
+                  counterSubject.add(++_rxdartCounter);
+                },
+                child: Text("Increase RX")),
+            StreamBuilder<int>(
+              stream: counterSubject.stream,
+              initialData: 0,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text("error");
+                } else if (snapshot.hasData) {
+                  return Text("${snapshot.data}");
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -51,7 +77,7 @@ class _MainPageState extends State<MainPage> {
 
   void _increment() {
     setState(() {
-      _counter++;
+      _simpleCounter++;
     });
   }
 }

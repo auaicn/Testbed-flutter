@@ -15,12 +15,12 @@ class ClockPainter extends CustomPainter {
     Offset center = Offset(centerX, centerY);
 
     // auxilary line
-    canvas.drawLine(Offset(0, 0), Offset(100, 0), Paint()..color = Colors.red); // check x-axis
-    canvas.drawLine(Offset(0, 0), Offset(0, 100), Paint()..color = Colors.blue); // check y-axis
+    // canvas.drawLine(Offset(0, 0), Offset(100, 0), Paint()..color = Colors.red); // check x-axis
+    // canvas.drawLine(Offset(0, 0), Offset(0, 100), Paint()..color = Colors.blue); // check y-axis
 
     // Hour Calculation
-    double hourX = centerX + size.width * 0.3 * cos(((dateTime.hour % 12) * 6) * pi / 180);
-    double hourY = centerY + size.width * 0.3 * sin(((dateTime.hour % 12) * 6) * pi / 180);
+    double hourX = centerX + size.width * 0.25 * cos(((dateTime.hour % 12) * 6) * pi / 180);
+    double hourY = centerY + size.width * 0.25 * sin(((dateTime.hour % 12) * 6) * pi / 180);
 
     // Hour line
     canvas.drawLine(

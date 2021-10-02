@@ -2,6 +2,8 @@ import 'package:analog_clock/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'components/body.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: buildAppBar(context),
+      body: Body(),
     );
   }
 
@@ -27,7 +30,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget buildAddButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
       child: InkWell(
         onTap: () {},
         child: Container(

@@ -1,14 +1,14 @@
-# analog_clock
+# Analog Clock
 
-A new Flutter project.
+used flutter 2.7 (not null safety)  
+tested on ios Simulator with iOS version 15.  
+references video source below.
 
-## Getting Started
+## Previews
 
-used flutter 2.7 (not null safety)
-tested on ios Simulator with iOS version 15
+![light_mode_preview](./light_mode_preview.png)
+![dark_mode_preview](./dark_mode_preview.png)
 
-on terminal with flutter installed
-- flutter pub get
 
 ---
 

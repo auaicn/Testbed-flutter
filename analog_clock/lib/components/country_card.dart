@@ -16,43 +16,47 @@ class CountryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: getProportionateScreenWidth(233),
-      child: AspectRatio(
-        aspectRatio: 1.32,
-        child: Container(
-          padding: EdgeInsets.all(
-            getProportionateScreenWidth(20),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Theme.of(context).primaryIconTheme.color),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '$country',
-                style: Theme.of(context).textTheme.headline4.copyWith(fontSize: getProportionateScreenWidth(16)),
-              ),
-              SizedBox(height: 6),
-              Text('$timeZone'),
-              Spacer(),
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    '$iconSrc',
-                    width: getProportionateScreenWidth(40),
-                  ),
-                  Spacer(),
-                  Text('$time', style: Theme.of(context).textTheme.headline4),
-                  RotatedBox(
-                    quarterTurns: 3,
-                    child: Text('$period'),
-                  ),
-                ],
-              )
-            ],
+    return Padding(
+      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      child: SizedBox(
+        width: getProportionateScreenWidth(233),
+        child: AspectRatio(
+          aspectRatio: 1.32,
+          child: Container(
+            padding: EdgeInsets.all(
+              getProportionateScreenWidth(20),
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Theme.of(context).primaryIconTheme.color),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$country',
+                  style: Theme.of(context).textTheme.headline4.copyWith(fontSize: getProportionateScreenWidth(16)),
+                ),
+                SizedBox(height: 6),
+                Text('$timeZone'),
+                Spacer(),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      '$iconSrc',
+                      width: getProportionateScreenWidth(40),
+                      color: Theme.of(context).accentIconTheme.color,
+                    ),
+                    Spacer(),
+                    Text('$time', style: Theme.of(context).textTheme.headline4),
+                    RotatedBox(
+                      quarterTurns: 3,
+                      child: Text('$period'),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

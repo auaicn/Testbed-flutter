@@ -1,7 +1,9 @@
+import 'package:firebase_analytics_example/src/pages/dependencies/dependency_manage_page.dart';
 import 'package:firebase_analytics_example/src/pages/simple_stage_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
+import 'pages/binding.dart';
 import 'pages/normal/get_x_page.dart';
 import 'pages/normal/normal_page.dart';
 import 'pages/reactive_stage_manage.dart';
@@ -75,6 +77,18 @@ class Home extends StatelessWidget {
                 Get.to(() => ReactiveStateManagePage());
               },
               child: Text('반응형 상태 관리'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => DependencyManagePage());
+              },
+              child: Text('의존성 주입'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed('/binding');
+              },
+              child: Text('Binding Example'),
             ),
           ],
         ),

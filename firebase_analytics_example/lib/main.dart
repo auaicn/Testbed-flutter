@@ -7,6 +7,8 @@ import 'package:firebase_analytics_example/src/pages/named/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'src/pages/binding.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -27,6 +29,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/argument', page: () => ArgumentPage(), transition: Transition.zoom),
         GetPage(name: '/argument_class', page: () => ArgumentClassPage(), transition: Transition.zoom),
         GetPage(name: '/user/:uid', page: () => UserPage(), transition: Transition.fade),
+        GetPage(
+          name: '/binding',
+          page: () => BindingPage(),
+        ),
       ],
     );
   }

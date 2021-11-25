@@ -1,9 +1,11 @@
 import 'package:firebase_analytics_example/src/controller/dependency_controller.dart';
-import 'package:firebase_analytics_example/src/pages/dependencies/lazy_put.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'get_put.dart';
+import 'components/get_create.dart';
+import 'components/get_put.dart';
+import 'components/lazy_put.dart';
+import 'components/put_async.dart';
 
 class DependencyManagePage extends StatelessWidget {
   const DependencyManagePage({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class DependencyManagePage extends StatelessWidget {
             TextButton(
               child: Text('Get.putAsync'),
               onPressed: () {
-                Get.to(() => GetPutPage(), binding: BindingsBuilder(() {
+                Get.to(() => PutAsync(), binding: BindingsBuilder(() {
                   Get.putAsync<DependencyController>(() async {
                     /// controller instance 화 전에, 무언가 필요할 때
                     /// 물론, 들어가서 async 를 부르는 것도 가능하다.
@@ -62,7 +64,7 @@ class DependencyManagePage extends StatelessWidget {
               child: Text('Get.create'),
               onPressed: () {
                 Get.to(
-                  () => GetPutPage(),
+                  () => GetCreatePage(),
                   binding: BindingsBuilder(() {
                     /// lazy 와 비슷하게 사용시에 instance 화 된다.
                     /// 다른 점은, 사용될때마다 새로운 instance 가 생긴다!

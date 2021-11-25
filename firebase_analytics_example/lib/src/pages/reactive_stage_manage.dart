@@ -23,11 +23,6 @@ class ReactiveStateManagePage extends StatelessWidget {
               print('updated!');
               return Text('obx ${Get.find<CountControllerWithReactive>().count.value}');
             }),
-            // GetX(
-            //   builder: (_) {
-            //     return Text('get find ${Get.find<CountControllerWithReactive>().count.value}');
-            //   },
-            // ),
             TextButton(
               onPressed: () {
                 Get.find<CountControllerWithReactive>().increase();
@@ -38,7 +33,7 @@ class ReactiveStateManagePage extends StatelessWidget {
               onPressed: () {
                 Get.find<CountControllerWithReactive>().putNumber(5);
               },
-              child: Text('5로 변경'),
+              child: Text('5로 변경 이미 5인 경우, 변경되지 않는 것을 주목!'),
             ),
           ],
         ),

@@ -51,7 +51,7 @@ class GetXPage extends StatelessWidget {
               onPressed: () {
                 Get.offAll(() => Home());
               },
-              child: Text('일반적인 Navigator pop until'),
+              child: Text('Get X offAll'),
             ),
           ],
         ),

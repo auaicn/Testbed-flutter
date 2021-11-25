@@ -3,7 +3,6 @@ import 'package:firebase_analytics_example/src/pages/simple_stage_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-import 'pages/binding.dart';
 import 'pages/normal/get_x_page.dart';
 import 'pages/normal/normal_page.dart';
 import 'pages/reactive_stage_manage.dart';

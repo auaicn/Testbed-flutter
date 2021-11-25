@@ -1,3 +1,4 @@
+import 'package:firebase_analytics_example/src/pages/simple_stage_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
@@ -61,6 +62,12 @@ class Home extends StatelessWidget {
                 Get.toNamed('/user/12343?name=개남&age=25');
               },
               child: Text('parameter 전달 (uid)'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => SimpleStateManagePage());
+              },
+              child: Text('단순 상태 관리'),
             ),
           ],
         ),

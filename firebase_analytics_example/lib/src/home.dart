@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 
 import 'pages/normal/get_x_page.dart';
 import 'pages/normal/normal_page.dart';
+import 'pages/reactive_stage_manage.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -68,6 +69,12 @@ class Home extends StatelessWidget {
                 Get.to(() => SimpleStateManagePage());
               },
               child: Text('단순 상태 관리'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => ReactiveStateManagePage());
+              },
+              child: Text('반응형 상태 관리'),
             ),
           ],
         ),

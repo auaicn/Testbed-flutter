@@ -9,7 +9,7 @@ class GetXPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Second Page'),
+        title: Text('Get X Routed Page'),
       ),
       body: Center(
         child: Column(

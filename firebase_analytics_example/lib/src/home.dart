@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => NormalPage()),
                 );
               },
-              child: Text('일반적인 라우트'),
+              child: Text('기존 라우트'),
             ),
             TextButton(
               onPressed: () {
@@ -31,9 +31,50 @@ class Home extends StatelessWidget {
               },
               child: Text('Getx 라우트'),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/first');
+              },
+              child: Text('Named 라우트'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed('/first');
+              },
+              child: Text('Named Get X라우트'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed('/argument', arguments: {'name': 'kyungho', 'age': 21});
+              },
+              child: Text('Argument 전달'),
+            ),
+            TextButton(
+              onPressed: () {
+                User user = User(name: 'kanghyun', age: 3);
+                Get.toNamed('/argument_class', arguments: user);
+              },
+              child: Text('Argument 전달 Custom Class'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed('/user/12343?name=개남&age=25');
+              },
+              child: Text('parameter 전달 (uid)'),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class User {
+  String name;
+  int age;
+
+  User({
+    required this.name,
+    required this.age,
+  });
 }

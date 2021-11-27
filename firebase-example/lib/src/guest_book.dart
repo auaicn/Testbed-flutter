@@ -6,7 +6,7 @@ import 'package:gtk_flutter/models/guest_book_message.dart';
 import 'widgets.dart';
 
 class GuestBook extends StatefulWidget {
-  GuestBook({required this.addMessage, required this.messages});
+  const GuestBook({required this.addMessage, required this.messages});
   final FutureOr<void> Function(String message) addMessage;
   final List<GuestBookMessage> messages;
 
@@ -43,7 +43,7 @@ class _GuestBookState extends State<GuestBook> {
                     },
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 StyledButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
@@ -52,7 +52,7 @@ class _GuestBookState extends State<GuestBook> {
                     }
                   },
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(Icons.send),
                       SizedBox(width: 4),
                       Text('SEND'),
@@ -63,9 +63,9 @@ class _GuestBookState extends State<GuestBook> {
             ),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         for (var message in widget.messages) Paragraph('${message.name}: ${message.message}'),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
       ],
     );
   }

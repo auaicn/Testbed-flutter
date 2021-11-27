@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gtk_flutter/enums/application_login_state.dart';
 
+import 'email_form.dart';
+import 'password_form.dart';
+import 'register_form.dart';
 import 'widgets.dart';
 
 class Authentication extends StatelessWidget {

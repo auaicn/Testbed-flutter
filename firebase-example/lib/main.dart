@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gtk_flutter/enums/application_login_state.dart';
 import 'package:provider/provider.dart';
 
 import 'application_state.dart';
-import 'guest_book.dart';
 import 'src/authentication.dart';
+import 'src/guest_book.dart';
 import 'src/widgets.dart';
 
 void main() {
@@ -70,8 +71,19 @@ class HomePage extends StatelessWidget {
           ),
           const Header("What we'll be doing"),
           const Paragraph('Join us for a day full of Firebase Workshops and Pizza!'),
-          Header('Discussion'),
-          GuestBook(addMessage: (String message) => print(message)),
+          Consumer<ApplicationState>(
+            builder: (context, appState, _) => Column(
+              children: [
+                if (appState.loginState == ApplicationLoginState.loggedIn) ...[
+                  Header('Discussion'),
+                  GuestBook(
+                    addMessage: (String message) => appState.addMessageToGuestBook(message),
+                    messages: appState.guestBookMessage,
+                  ),
+                ]
+              ],
+            ),
+          ),
         ],
       ),
     );

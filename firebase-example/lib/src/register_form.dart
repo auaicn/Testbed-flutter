@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gtk_flutter/src/widgets.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({

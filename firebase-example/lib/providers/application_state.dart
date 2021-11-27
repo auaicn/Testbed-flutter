@@ -24,12 +24,14 @@ class ApplicationState extends ChangeNotifier {
         print('logined with UID ${FirebaseAuth.instance.currentUser!.uid}');
         _subscribeForGuestBook();
         _subscribeForAttendees();
+        _subscribeForOwnAttending();
         _subscribeForParticipants();
       } else {
         _loginState = ApplicationLoginState.loggedOut;
         _unSubscribeForGuestBook();
         _unSubscribeForAttendees();
         _unSubscribeForParticipants();
+        _unSubscribeForOwnAttending();
         _guestBookMessages.clear();
         _participants.clear();
       }
@@ -178,10 +180,30 @@ class ApplicationState extends ChangeNotifier {
   int _attendees = 0;
   int get attendees => _attendees;
 
-  StreamSubscription<QuerySnapshot>? _attendingSubscription;
+  StreamSubscription<QuerySnapshot>? _attendeesSubscription;
+
+  void _subscribeForAttendees() {
+    _attendeesSubscription = FirebaseFirestore.instance //
+        .collection('attendees')
+        .where('attending', isEqualTo: true)
+        .snapshots()
+        .listen((snapshot) {
+      _attendees = snapshot.docs.length;
+
+      notifyListeners();
+    });
+  }
+
+  void _unSubscribeForAttendees() {
+    _attendingSubscription?.cancel();
+  }
+
+  // Own Attending
+  StreamSubscription<DocumentSnapshot>? _attendingSubscription;
 
   Attending _attending = Attending.unknown;
   Attending get attending => _attending;
+
   set attending(Attending attending) {
     final userDoc = FirebaseFirestore.instance //
         .collection('attendees')
@@ -194,19 +216,22 @@ class ApplicationState extends ChangeNotifier {
     }
   }
 
-  void _subscribeForAttendees() {
-    _attendingSubscription = FirebaseFirestore.instance //
-        .collection('attendees')
-        .where('attending', isEqualTo: true)
-        .snapshots()
-        .listen((snapshot) {
-      _attendees = snapshot.docs.length;
-
+  void _subscribeForOwnAttending() {
+    _attendingSubscription = FirebaseFirestore.instance.collection('attendees').doc(FirebaseAuth.instance.currentUser?.uid).snapshots().listen((snapshot) {
+      if (snapshot.data() != null) {
+        if (snapshot.data()!['attending'] as bool) {
+          _attending = Attending.yes;
+        } else {
+          _attending = Attending.no;
+        }
+      } else {
+        _attending = Attending.unknown;
+      }
       notifyListeners();
     });
   }
 
-  void _unSubscribeForAttendees() {
+  void _unSubscribeForOwnAttending() {
     _attendingSubscription?.cancel();
   }
 }

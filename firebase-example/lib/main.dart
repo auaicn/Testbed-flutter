@@ -57,25 +57,56 @@ class HomePage extends StatelessWidget {
             endIndent: 8,
             color: Colors.grey,
           ),
+          SizedBox(height: 40),
+          Header('Authentication Status'),
           Consumer<ApplicationState>(
-            builder: (context, appState, _) => Authentication(
-              email: appState.email,
-              loginState: appState.loginState,
-              startLoginFlow: appState.startLoginFlow,
-              verifyEmail: appState.verifyEmail,
-              signInWithEmailAndPassword: appState.signInWithEmailAndPassword,
-              cancelRegistration: appState.cancelRegistration,
-              registerAccount: appState.registerAccount,
-              signOut: appState.signOut,
+            builder: (context, appState, _) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Paragraph('You are now ${appState.loginState.simpleString()}!'),
+                SizedBox(height: 8),
+                Authentication(
+                  email: appState.email,
+                  loginState: appState.loginState,
+                  startLoginFlow: appState.startLoginFlow,
+                  verifyEmail: appState.verifyEmail,
+                  signInWithEmailAndPassword: appState.signInWithEmailAndPassword,
+                  cancelRegistration: appState.cancelRegistration,
+                  registerAccount: appState.registerAccount,
+                  signOut: appState.signOut,
+                ),
+              ],
             ),
           ),
-          const Header("What we'll be doing"),
+          SizedBox(height: 40),
+          const Header("What we planed to do"),
           const Paragraph('Join us for a day full of Firebase Workshops and Pizza!'),
+          Consumer<ApplicationState>(
+            builder: (context, appState, _) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Paragraph('You wanna join?, for now ${appState.participants.length} participants'),
+                Row(
+                  children: [
+                    SizedBox(width: 8),
+                    StyledButton(
+                        child: Text('Yes!'),
+                        onPressed: () {
+                          appState.register();
+                        }),
+                    SizedBox(width: 8),
+                    StyledButton(child: Text('Nope'), onPressed: () {}),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 40),
           Consumer<ApplicationState>(
             builder: (context, appState, _) => Column(
               children: [
                 if (appState.loginState == ApplicationLoginState.loggedIn) ...[
-                  Header('Discussion'),
+                  Header('Chats'),
                   GuestBook(
                     addMessage: (String message) => appState.addMessageToGuestBook(message),
                     messages: appState.guestBookMessage,

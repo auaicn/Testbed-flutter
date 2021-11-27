@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:gtk_flutter/models/guest_book_message.dart';
 
 import 'enums/application_login_state.dart';
+import 'models/participant.dart';
 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
@@ -19,25 +20,14 @@ class ApplicationState extends ChangeNotifier {
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
         _loginState = ApplicationLoginState.loggedIn;
-        _guestBookSubscription = FirebaseFirestore.instance //
-            .collection('guestbook')
-            .orderBy('timestamp', descending: true)
-            .limit(3)
-            .snapshots()
-            .listen((snapshot) {
-          _guestBookMessages = [];
-          snapshot.docs.forEach((doc) {
-            _guestBookMessages.add(GuestBookMessage(
-              name: doc.data()['name'] as String,
-              message: doc.data()['text'] as String,
-            ));
-          });
-          notifyListeners();
-        });
+        _subscribeForGuestBook();
+        _subscribeForParticipants();
       } else {
         _loginState = ApplicationLoginState.loggedOut;
-        _guestBookMessages = [];
-        _guestBookSubscription?.cancel();
+        _unSubscribeForGuestBook();
+        _unSubscribeForParticipants();
+        _guestBookMessages.clear();
+        _participants.clear();
       }
 
       notifyListeners();
@@ -125,5 +115,59 @@ class ApplicationState extends ChangeNotifier {
       'name': FirebaseAuth.instance.currentUser!.displayName,
       'userId': FirebaseAuth.instance.currentUser!.uid,
     });
+  }
+
+  List<Participant> _participants = [];
+  List<Participant> get participants => _participants;
+
+  StreamSubscription<QuerySnapshot>? _participantsSubscription;
+
+  void register() {
+    FirebaseFirestore.instance.collection('participants').add(<String, dynamic>{
+      'name': FirebaseAuth.instance.currentUser!.displayName,
+      'timestamp': FirebaseAuth.instance.currentUser!.displayName,
+    });
+  }
+
+  void _subscribeForGuestBook() {
+    _guestBookSubscription = FirebaseFirestore.instance //
+        .collection('guestbook')
+        .orderBy('timestamp', descending: true)
+        .limit(3)
+        .snapshots()
+        .listen((snapshot) {
+      _guestBookMessages = [];
+      snapshot.docs.forEach((doc) {
+        _guestBookMessages.add(GuestBookMessage(
+          name: doc.data()['name'] as String,
+          message: doc.data()['text'] as String,
+        ));
+      });
+      notifyListeners();
+    });
+  }
+
+  void _subscribeForParticipants() {
+    _participantsSubscription = FirebaseFirestore.instance //
+        .collection('participants')
+        .snapshots()
+        .listen((snapshot) {
+      _participants.clear();
+      snapshot.docs.forEach((doc) {
+        _participants.add(Participant(
+          name: doc.data()['name'] as String,
+          timestamp: DateTime.now().millisecondsSinceEpoch,
+        ));
+      });
+      notifyListeners();
+    });
+  }
+
+  void _unSubscribeForGuestBook() {
+    _guestBookSubscription?.cancel();
+  }
+
+  void _unSubscribeForParticipants() {
+    _participantsSubscription?.cancel();
   }
 }

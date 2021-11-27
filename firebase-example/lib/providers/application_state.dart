@@ -4,10 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gtk_flutter/enums/attending.dart';
 import 'package:gtk_flutter/models/guest_book_message.dart';
 
-import 'enums/application_login_state.dart';
-import 'models/participant.dart';
+import '../enums/application_login_state.dart';
+import '../models/participant.dart';
 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
@@ -20,11 +21,14 @@ class ApplicationState extends ChangeNotifier {
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
         _loginState = ApplicationLoginState.loggedIn;
+        print('logined with UID ${FirebaseAuth.instance.currentUser!.uid}');
         _subscribeForGuestBook();
+        _subscribeForAttendees();
         _subscribeForParticipants();
       } else {
         _loginState = ApplicationLoginState.loggedOut;
         _unSubscribeForGuestBook();
+        _unSubscribeForAttendees();
         _unSubscribeForParticipants();
         _guestBookMessages.clear();
         _participants.clear();
@@ -169,5 +173,40 @@ class ApplicationState extends ChangeNotifier {
 
   void _unSubscribeForParticipants() {
     _participantsSubscription?.cancel();
+  }
+
+  int _attendees = 0;
+  int get attendees => _attendees;
+
+  StreamSubscription<QuerySnapshot>? _attendingSubscription;
+
+  Attending _attending = Attending.unknown;
+  Attending get attending => _attending;
+  set attending(Attending attending) {
+    final userDoc = FirebaseFirestore.instance //
+        .collection('attendees')
+        .doc('${FirebaseAuth.instance.currentUser?.uid}');
+
+    if (attending == Attending.yes) {
+      userDoc.set(<String, bool>{'attending': true});
+    } else {
+      userDoc.set(<String, bool>{'attending': false});
+    }
+  }
+
+  void _subscribeForAttendees() {
+    _attendingSubscription = FirebaseFirestore.instance //
+        .collection('attendees')
+        .where('attending', isEqualTo: true)
+        .snapshots()
+        .listen((snapshot) {
+      _attendees = snapshot.docs.length;
+
+      notifyListeners();
+    });
+  }
+
+  void _unSubscribeForAttendees() {
+    _attendingSubscription?.cancel();
   }
 }

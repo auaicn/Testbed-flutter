@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gtk_flutter/enums/application_login_state.dart';
+import 'package:gtk_flutter/enums/attending.dart';
 import 'package:provider/provider.dart';
 
-import 'application_state.dart';
+import 'providers/application_state.dart';
 import 'src/authentication.dart';
 import 'src/guest_book.dart';
 import 'src/widgets.dart';
@@ -65,17 +66,21 @@ class _HomePageState extends State<HomePage> {
             builder: (context, appState, _) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Paragraph('You wanna join?, for now ${appState.participants.length} participants'),
+                Paragraph('You wanna join?, for now ${appState.attendees} participants'),
                 Row(
                   children: [
                     const SizedBox(width: 8),
                     StyledButton(
                         child: const Text('Yes!'),
                         onPressed: () {
-                          appState.register();
+                          appState.attending = Attending.yes;
                         }),
                     const SizedBox(width: 8),
-                    StyledButton(child: const Text('Nope'), onPressed: () {}),
+                    StyledButton(
+                        child: const Text('Nope'),
+                        onPressed: () {
+                          appState.attending = Attending.no;
+                        }),
                   ],
                 ),
               ],

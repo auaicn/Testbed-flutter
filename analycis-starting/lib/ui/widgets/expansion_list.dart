@@ -41,9 +41,7 @@ class _ExpansionListState extends State<ExpansionList> {
               ? sharedStyles.smallFieldHeight
               : startingHeight,
       decoration: sharedStyles.fieldDecortaion.copyWith(
-        boxShadow: expanded
-            ? [BoxShadow(blurRadius: 10, color: Colors.grey[300])]
-            : null,
+        boxShadow: expanded ? [BoxShadow(blurRadius: 10, color: Colors.grey[300])] : null,
       ),
       child: ListView(
         physics: NeverScrollableScrollPhysics(),
@@ -86,14 +84,8 @@ class _ExpansionListState extends State<ExpansionList> {
   }
 
   void _calculateExpandedHeight() {
-    expandedHeight = 2 +
-        (widget.smallVersion
-            ? sharedStyles.smallFieldHeight
-            : sharedStyles.fieldHeight) +
-        (widget.items.length *
-            (widget.smallVersion
-                ? sharedStyles.smallFieldHeight
-                : sharedStyles.fieldHeight));
+    expandedHeight =
+        2 + (widget.smallVersion ? sharedStyles.smallFieldHeight : sharedStyles.fieldHeight) + (widget.items.length * (widget.smallVersion ? sharedStyles.smallFieldHeight : sharedStyles.fieldHeight));
   }
 }
 
@@ -116,9 +108,7 @@ class ExpansionListItem extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
       child: Container(
-        height: smallVersion
-            ? sharedStyles.smallFieldHeight
-            : sharedStyles.fieldHeight,
+        height: smallVersion ? sharedStyles.smallFieldHeight : sharedStyles.fieldHeight,
         alignment: Alignment.centerLeft,
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -127,10 +117,7 @@ class ExpansionListItem extends StatelessWidget {
             Expanded(
               child: Text(
                 title ?? '',
-                style: Theme.of(context)
-                    .textTheme
-                    .subhead
-                    .copyWith(fontSize: smallVersion ? 12 : 15),
+                style: Theme.of(context).textTheme.subtitle1.copyWith(fontSize: smallVersion ? 12 : 15),
               ),
             ),
             showArrow

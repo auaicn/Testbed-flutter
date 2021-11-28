@@ -8,32 +8,26 @@ class CloudStorageService {
     @required File imageToUpload,
     @required String title,
   }) async {
-    var imageFileName =
-        title + DateTime.now().millisecondsSinceEpoch.toString();
+    var imageFileName = title + DateTime.now().millisecondsSinceEpoch.toString();
 
-    final StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(imageFileName);
+    final Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(imageFileName);
 
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
 
-    StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
-
-    var downloadUrl = await storageSnapshot.ref.getDownloadURL();
-
-    if (uploadTask.isComplete) {
+    await uploadTask.then((storageSnapshot) {
+      var downloadUrl = storageSnapshot.ref.getDownloadURL();
       var url = downloadUrl.toString();
       return CloudStorageResult(
         imageUrl: url,
         imageFileName: imageFileName,
       );
-    }
+    });
 
     return null;
   }
 
   Future deleteImage(String imageFileName) async {
-    final StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(imageFileName);
+    final Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(imageFileName);
 
     try {
       await firebaseStorageRef.delete();

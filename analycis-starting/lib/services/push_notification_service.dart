@@ -6,33 +6,40 @@ import 'package:compound/services/navigation_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class PushNotificationService {
-  final FirebaseMessaging _fcm = FirebaseMessaging();
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future initialise() async {
     if (Platform.isIOS) {
       // request permissions if we're on android
-      _fcm.requestNotificationPermissions(IosNotificationSettings());
     }
 
-    _fcm.configure(
-      // Called when the app is in the foreground and we receive a push notification
-      onMessage: (Map<String, dynamic> message) async {
-        print('onMessage: $message');
-      },
-      // Called when the app has been closed comlpetely and it's opened
-      // from the push notification.
-      onLaunch: (Map<String, dynamic> message) async {
-        print('onLaunch: $message');
-        _serialiseAndNavigate(message);
-      },
-      // Called when the app is in the background and it's opened
-      // from the push notification.
-      onResume: (Map<String, dynamic> message) async {
-        print('onResume: $message');
-        _serialiseAndNavigate(message);
-      },
-    );
+    NotificationSettings settings = await _fcm.requestPermission();
+
+    print('[Overall] User granted permission: ${settings.authorizationStatus}');
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+
+    FirebaseMessaging.onMessage.listen((message) {
+      print('onMessage: ${message.data}');
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print('onLaunch: ${message.data}');
+      _serialiseAndNavigate(message.data);
+    });
+
+    FirebaseMessaging.onBackgroundMessage((message) {
+      print('onResume: ${message.data}');
+      _serialiseAndNavigate(message.data);
+      return;
+    });
   }
 
   void _serialiseAndNavigate(Map<String, dynamic> message) {

@@ -1,5 +1,5 @@
 import 'package:compound/locator.dart';
-import 'package:compound/models/user.dart';
+import 'package:compound/models/user.dart' as ApplicationUser;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:compound/services/firestore_service.dart';
@@ -8,8 +8,8 @@ class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
 
-  User _currentUser;
-  User get currentUser => _currentUser;
+  ApplicationUser.User _currentUser;
+  ApplicationUser.User get currentUser => _currentUser;
 
   Future loginWithEmail({
     @required String email,
@@ -40,7 +40,7 @@ class AuthenticationService {
       );
 
       // create a new user profile on firestore
-      _currentUser = User(
+      _currentUser = ApplicationUser.User(
         id: authResult.user.uid,
         email: email,
         fullName: fullName,
@@ -56,12 +56,12 @@ class AuthenticationService {
   }
 
   Future<bool> isUserLoggedIn() async {
-    var user = await _firebaseAuth.currentUser();
+    var user = _firebaseAuth.currentUser;
     await _populateCurrentUser(user);
     return user != null;
   }
 
-  Future _populateCurrentUser(FirebaseUser user) async {
+  Future _populateCurrentUser(User user) async {
     if (user != null) {
       _currentUser = await _firestoreService.getUser(user.uid);
     }

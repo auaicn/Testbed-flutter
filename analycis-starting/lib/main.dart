@@ -10,6 +10,8 @@ import 'locator.dart';
 void main() async {
   // Register all the models and services before the app starts
   setupLocator();
+
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // reads constants file
   runApp(MyApp());
 }

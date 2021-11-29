@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:compound/locator.dart';
 import 'package:compound/models/post.dart';
+import 'package:compound/services/analytics_service.dart';
 import 'package:compound/services/cloud_storage_service.dart';
 import 'package:compound/services/dialog_service.dart';
 import 'package:compound/services/firestore_service.dart';
@@ -16,6 +17,7 @@ class CreatePostViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final ImageSelector _imageSelector = locator<ImageSelector>();
   final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
+  final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   File _selectedImage;
   File get selectedImage => _selectedImage;
@@ -53,6 +55,7 @@ class CreatePostViewModel extends BaseModel {
         imageUrl: storageResult.imageUrl,
         imageFileName: storageResult.imageFileName,
       ));
+      await _analyticsService.logPostCreated(hasImage: _selectedImage != null);
     } else {
       result = await _firestoreService.updatePost(Post(
         title: title,

@@ -12,7 +12,7 @@ void main() async {
   setupLocator();
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // reads constants file
+  await Firebase.initializeApp(); // where firebase core is used
   runApp(MyApp());
 }
 

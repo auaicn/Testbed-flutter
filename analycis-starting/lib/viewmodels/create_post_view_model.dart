@@ -15,8 +15,7 @@ class CreatePostViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final ImageSelector _imageSelector = locator<ImageSelector>();
-  final CloudStorageService _cloudStorageService =
-      locator<CloudStorageService>();
+  final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
 
   File _selectedImage;
   File get selectedImage => _selectedImage;

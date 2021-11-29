@@ -1,6 +1,7 @@
 import 'package:compound/locator.dart';
 import 'package:compound/models/user.dart' as ApplicationUser;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:compound/services/firestore_service.dart';
 

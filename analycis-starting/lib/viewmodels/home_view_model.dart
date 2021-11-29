@@ -11,8 +11,7 @@ class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
-  final CloudStorageService _cloudStorageService =
-      locator<CloudStorageService>();
+  final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
 
   List<Post> _posts;
   List<Post> get posts => _posts;
@@ -54,7 +53,6 @@ class HomeViewModel extends BaseModel {
   }
 
   void editPost(int index) {
-    _navigationService.navigateTo(CreatePostViewRoute,
-        arguments: _posts[index]);
+    _navigationService.navigateTo(CreatePostViewRoute, arguments: _posts[index]);
   }
 }

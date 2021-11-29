@@ -14,16 +14,16 @@ class CloudStorageService {
 
     UploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
 
-    await uploadTask.then((storageSnapshot) {
-      var downloadUrl = storageSnapshot.ref.getDownloadURL();
-      var url = downloadUrl.toString();
-      return CloudStorageResult(
-        imageUrl: url,
-        imageFileName: imageFileName,
-      );
-    });
+    return await uploadTask.then((storageSnapshot) {
+      return storageSnapshot.ref.getDownloadURL().then((downloadUrl) {
+        var url = downloadUrl.toString();
 
-    return null;
+        return CloudStorageResult(
+          imageUrl: url,
+          imageFileName: imageFileName,
+        );
+      });
+    });
   }
 
   Future deleteImage(String imageFileName) async {

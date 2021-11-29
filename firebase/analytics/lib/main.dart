@@ -1,3 +1,4 @@
+import 'package:compound/services/analytics_service.dart';
 import 'package:compound/ui/views/startup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) => MaterialPageRoute(builder: (context) => DialogManager(child: child)),
       ),
       navigatorKey: locator<NavigationService>().navigationKey,
+      navigatorObservers: [locator<AnalyticsService>().analyticsObserver],
       theme: ThemeData(
         primaryColor: Color(0xff19c7c1),
         textTheme: Theme.of(context).textTheme.apply(

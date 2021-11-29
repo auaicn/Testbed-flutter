@@ -1,3 +1,4 @@
+import 'package:compound/services/analytics_service.dart';
 import 'package:compound/services/authentication_service.dart';
 import 'package:compound/services/cloud_storage_service.dart';
 import 'package:compound/services/firestore_service.dart';
@@ -17,4 +18,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => CloudStorageService());
   locator.registerLazySingleton(() => ImageSelector());
   locator.registerLazySingleton(() => PushNotificationService());
+  locator.registerLazySingleton(() => AnalyticsService());
 }
